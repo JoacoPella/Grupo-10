@@ -55,9 +55,9 @@ public class Sudoku {
 
 
     public static boolean solveSudoku(int[][] sudoku){
-        int row = 0;
-        int col = 0;
-        boolean empty = true;
+        int row = 0; //keeps the record of the row that has the empty element.
+        int col = 0; //keeps the record of the column that has the empty element.
+        boolean isFull = true; //boolean which indicates if there are empty spaces.
 
         for(int f = 0; f< sudoku.length;f++){
 
@@ -66,38 +66,38 @@ public class Sudoku {
                 if(sudoku[f][c] == 0){
                     row = f;
                     col = c;
-                    empty = false;
+                    isFull = false;
                     break;
                 }
             }
-            if(!empty){ // there are still empty positions.
+            if(!isFull){ // there are still empty positions.
                 break;
             }
         }
-        if(empty){ // no more empty positions remaining.
+        if(isFull){ // if there are no more empty positions remaining, returns true.
             return true;
         }
 
         for(int number = 1; number <= 9; number++){
 
-            if(isPossible(sudoku, row, col, number)){
-                sudoku[row][col] = number;
+            if(isPossible(sudoku, row, col, number)){ 
+                sudoku[row][col] = number; //if it's possible to use that number in that position, makes a tentative assigment. 
 
-                if(solveSudoku(sudoku)){
+                if(solveSudoku(sudoku)){ //if solveSudoku is done, return true.
                     return true;
 
                 }
-                sudoku[row][col] = 0;
+                sudoku[row][col] = 0; //failure, undo and retry.
             }
         }
-        return false;
+        return false; 
     }
 
 
 
 
-    public static void dysplaySudoku(int[][] sudoku) {
-        // dysplays the solved sudoku.
+    public static void displaySudoku(int[][] sudoku) {
+        // displays the solved sudoku.
 
         for (int i = 0; i < 9; i++) {
 
