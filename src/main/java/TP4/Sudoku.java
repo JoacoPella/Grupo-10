@@ -1,18 +1,8 @@
 package TP4;
+// author: Lopez Emiliano, Pontiroli Lourdes y Pella Joaquín.
 
 public class Sudoku {
 
-//    private final int[][] sudoku;
-//    private static final int vacio = 0;
-//
-//    public TP4.Sudoku() { // crea la matriz
-//
-//        sudoku = new int[9][9];
-//    }
-//
-//    public TP4.Sudoku(int[][] sudoku) {
-//        this.sudoku = sudoku;
-//    }
 
 
     private static boolean contieneFila(int[][] sudoku, int fila, int numero) { // checkea en toda la fila si el numero ya esta en uso
