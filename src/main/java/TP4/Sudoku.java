@@ -5,10 +5,11 @@ public class Sudoku {
 
 
 
-    private static boolean contieneFila(int[][] sudoku, int fila, int numero) { // checkea en toda la fila si el numero ya esta en uso
+    private static boolean containsInRow(int[][] sudoku, int row, int number) {
+        // check in the whole row if the number is already in use.
 
         for (int i = 0; i < 9; i++) {
-            if (sudoku[fila][i] == numero) {
+            if (sudoku[row][i] == number) {
                 return true;
             }
         }
@@ -16,25 +17,27 @@ public class Sudoku {
     }
 
 
-    private static boolean contieneColumna(int[][] sudoku, int col, int numero) { // // checkea en toda la columna si el numero ya esta en uso
+    private static boolean containsInColumn(int[][] sudoku, int col, int number) {
+        // check in the whole column if the number is already in use.
 
         for (int i = 0; i < 9; i++) {
-            if (sudoku[i][col] == numero) {
+            if (sudoku[i][col] == number) {
                 return true;
             }
         }
         return false;
     }
 
-    private static boolean contieneCaja(int[][] sudoku, int fila, int col, int numero) { //checkea en la caja de 3x3 si el número yta está en uso
+    private static boolean containsInBox(int[][] sudoku, int row, int col, int number) {
+        // check in the whole 3x3 box if the number is already in use.
 
-        int f = fila - fila % 3;
+        int f = row - row % 3;
         int c = col - col % 3;
         for (int i = f; i < f + 3; i++) {
 
             for (int j = c; j < c + 3; j++) {
 
-                if (sudoku[i][j] == numero) {
+                if (sudoku[i][j] == number) {
                     return true;
                 }
             }
@@ -43,76 +46,48 @@ public class Sudoku {
         return false;
     }
 
-    private static boolean esPosible(int[][] sudoku, int fila, int col, int numero) { //utiliza los anteriores 3 métodos para probar que es posible utilizar cierto número en el casillero
+    private static boolean isPossible(int[][] sudoku, int row, int col, int number) {
+        // use the previous 3 methods to prove that it's possible to use the number in that position.
 
-        return !(contieneFila(sudoku, fila, numero) || contieneColumna(sudoku, col, numero) || contieneCaja(sudoku, fila, col, numero));
+        return !(containsInRow(sudoku, row, number) || containsInColumn(sudoku, col, number) || containsInBox(sudoku, row, col, number));
     }
 
-//    public boolean resolverSudoku(int[][] sudoku) {
-//
-//        for (int fila = 0; fila < sudoku.length; fila++) {
-//
-//            for (int col = 0; col < sudoku.length; col++) {
-//
-//                if (sudoku[fila][col] == vacio) {
-//
-//                    for (int numero = 1; numero <= 9; numero++) {
-//
-//                        if (esPosible(fila, col, numero)) {
-//
-//                            sudoku[fila][col] = numero;
-//
-//                            if (resolverSudoku(sudoku)) {
-//                                return true;
-//                            } else {
-//                                sudoku[fila][col] = vacio;
-//                            }
-//                        }
-//                    }
-//                    return false;
-//
-//                }
-//            }
-//
-//        }
-//        return false;
-//    }
 
 
-    public static boolean resolverSudoku(int[][] sudoku){
-        int fila = 0;
+    public static boolean solveSudoku(int[][] sudoku){
+        int row = 0;
         int col = 0;
-        boolean vacio = true;
+        boolean empty = true;
 
         for(int f = 0; f< sudoku.length;f++){
 
             for(int c = 0;c < sudoku.length; c++){
 
                 if(sudoku[f][c] == 0){
-                    fila = f;
+                    row = f;
                     col = c;
-                    vacio = false;
+                    empty = false;
                     break;
                 }
             }
-            if(!vacio){ //todavía quedan espacios por completar
+            if(!empty){ // there are still empty positions.
                 break;
             }
         }
-        if(vacio){ // no hay más espacios vacíos en nuestro sudoku
+        if(empty){ // no more empty positions remaining.
             return true;
         }
 
-        for(int numero = 1; numero <= 9; numero++){
+        for(int number = 1; number <= 9; number++){
 
-            if(esPosible(sudoku, fila, col, numero)){
-                sudoku[fila][col] = numero;
+            if(isPossible(sudoku, row, col, number)){
+                sudoku[row][col] = number;
 
-                if(resolverSudoku(sudoku)){
+                if(solveSudoku(sudoku)){
                     return true;
 
                 }
-                sudoku[fila][col] = 0;
+                sudoku[row][col] = 0;
             }
         }
         return false;
@@ -121,7 +96,9 @@ public class Sudoku {
 
 
 
-    public static void mostrarSudoku(int[][] sudoku) { // muestra el sudoku en consola, quedando claro (visualmente) la separación entre cajas
+    public static void dysplaySudoku(int[][] sudoku) {
+        // dysplays the solved sudoku.
+
         for (int i = 0; i < 9; i++) {
 
             if (i % 3 == 0 && i != 0) {
@@ -139,25 +116,4 @@ public class Sudoku {
             System.out.println();
         }
     }
-
-
-    public static void main(String[] args) {
-        int[][] s = new int[][]{ // sudoku a resolver
-                {0, 0, 0, 9, 0, 0, 4, 0, 7},
-                {0, 0, 0, 0, 5, 4, 1, 0, 0},
-                {0, 0, 0, 0, 1, 3, 8, 2, 0},
-                {8, 0, 0, 0, 3, 0, 7, 0, 0},
-                {0, 6, 0, 2, 0, 5, 0, 8, 0},
-                {0, 0, 1, 0, 8, 0, 0, 0, 3},
-                {0, 5, 6, 3, 7, 0, 0, 0, 0},
-                {0, 0, 9, 5, 2, 0, 0, 0, 0},
-                {2, 0, 3, 0, 0, 1, 0, 0, 0},
-        };
-
-
-        if (resolverSudoku(s)) {
-            mostrarSudoku(s);
-        }
-    }
-
 }
