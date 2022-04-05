@@ -20,7 +20,7 @@ public class Main {
 
 
         if (solveSudoku(s)) {
-            dysplaySudoku(s);
+            displaySudoku(s);
         }
     }
 }
