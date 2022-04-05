@@ -59,7 +59,7 @@ public class Sudoku {
         int col = 0; //keeps the record of the column that has the empty element.
         boolean isFull = true; //boolean which indicates if there are empty spaces.
 
-        for(int f = 0; f< sudoku.length;f++){
+        for(int f = 0; f < sudoku.length;f++){
 
             for(int c = 0;c < sudoku.length; c++){
 

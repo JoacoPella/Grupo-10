@@ -2,7 +2,7 @@ package TP4;
 // authors: Lopez Emiliano, Pontiroli Lourdes y Pella Joaquín.
 
 import static TP4.Sudoku.solveSudoku;
-import static TP4.Sudoku.dysplaySudoku;
+import static TP4.Sudoku.displaySudoku;
 
 public class Main {
     public static void main(String[] args) {
