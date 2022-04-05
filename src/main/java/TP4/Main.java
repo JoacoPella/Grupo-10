@@ -1,5 +1,5 @@
 package TP4;
-// author: Lopez Emiliano, Pontiroli Lourdes y Pella Joaquín.
+// authors: Lopez Emiliano, Pontiroli Lourdes y Pella Joaquín.
 
 import static TP4.Sudoku.solveSudoku;
 import static TP4.Sudoku.dysplaySudoku;
